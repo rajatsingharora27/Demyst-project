@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const apiSlice = createSlice({
   name: "companyInfo",
-  initialState: {},
+  initialState: { info: {} },
   reducers: {
     addCompanyInfo: (state, action) => {
-      state = { ...action.payload };
+      state.info = { ...action.payload };
     },
   },
 });

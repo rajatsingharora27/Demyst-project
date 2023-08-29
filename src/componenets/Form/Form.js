@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { loanDetails } from "../../redux/responseSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { sheet } from "../../utils/mock";
+import { addCompanyInfo } from "../../redux/apiSlice";
 
 const Form = () => {
+  const companyDetails = useSelector((store) => store.companyInfo.info);
   const [basicInfo, setBasicInfo] = useState({});
   const dispatch = useDispatch();
 
@@ -17,7 +19,7 @@ const Form = () => {
     // axios
     //   .post("url_to_backend", basicInfo)
     //   .then((respone) => dispatch(loanDetails(respone)));
-
+    dispatch(addCompanyInfo(companyDetails));
     dispatch(loanDetails(sheet));
   };
   // const test = () => {
@@ -41,7 +43,7 @@ const Form = () => {
             }}
           />
           <label
-            for="company_name"
+            htmlFor="company_name"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             Company Name
@@ -63,7 +65,7 @@ const Form = () => {
             }}
           />
           <label
-            for="year_established"
+            htmlFor="year_established"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             Year of Establishment
@@ -82,27 +84,27 @@ const Form = () => {
             }}
           />
           <label
-            for="loan_amount"
+            htmlFor="loan_amount"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             Loan Amount
           </label>
         </div>
         <h4 className="font-sans text-base mb-4"> Accounting Type</h4>
-        <div class="flex items-center mb-4 gap-x-3">
+        <div className="flex items-center mb-4 gap-x-3">
           <input
             id="default-radio-1"
             type="radio"
             value=""
             name="default-radio"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             onClick={() =>
               setBasicInfo({ ...basicInfo, accountingType: "Xero" })
             }
           />
           <label
-            for="default-radio-1"
-            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            htmlFor="default-radio-1"
+            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Xero
           </label>
@@ -112,14 +114,14 @@ const Form = () => {
             type="radio"
             value=""
             name="default-radio"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             onClick={() =>
               setBasicInfo({ ...basicInfo, accountingType: "MYOB" })
             }
           />
           <label
-            for="default-radio-1"
-            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            htmlFor="default-radio-1"
+            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             MYOB
           </label>
