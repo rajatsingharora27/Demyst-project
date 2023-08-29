@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { loanDetails } from "../../redux/responseSlice";
+import { useDispatch } from "react-redux";
+
+import { sheet } from "../../utils/mock";
 
 const Form = () => {
   const [basicInfo, setBasicInfo] = useState({});
-  console.log(basicInfo);
+  const dispatch = useDispatch();
 
   const sendRequst = () => {
-    axios.post("url_to_backend", basicInfo).then((respone) => {
-      console.log(respone);
-    });
+    // store payload in redux store
+
+    // axios
+    //   .post("url_to_backend", basicInfo)
+    //   .then((respone) => dispatch(loanDetails(respone)));
+    // alert("Hello");
+    // console.log(sheet);
+    dispatch(loanDetails(sheet));
   };
 
   return (
     // <div className="flex flex-col md:flex-row justify-around items-center m-9 gap-x-2 ">
-    <form className="flex flex-col justify-center items-center  border-solid border-2 border-black p-10 rounded-md w-1/2 h-[100vh] ">
+    <div className="flex flex-col justify-center items-center  border-solid border-2 border-black p-10 rounded-md w-1/2 h-[100vh] ">
       <div className="relative z-0 w-full mb-6 group">
         <input
           type="text"
@@ -107,14 +116,14 @@ const Form = () => {
         </label>
       </div>
 
+      {/* <button onClick={() => sendRequst}>submit</button> */}
       <button
-        type="submit"
         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        onClick={() => sendRequst}
+        onClick={sendRequst}
       >
         Get balance sheet
       </button>
-    </form>
+    </div>
 
     //   <div className="w-1/2 bg-black">hello</div>
     // </div>
