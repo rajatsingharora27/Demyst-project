@@ -2,15 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const responseSlice = createSlice({
   name: "loanDetailsInfo",
-  initialState: [],
+  initialState: {
+    accoutingResponse: [],
+  },
   reducers: {
     loanDetails: (state, action) => {
-      //   console.log(state);
-      //   console.log(action.payload);
-      state = action.payload;
-      console.log(state, "state");
-      console.log(state[0], "state1");
-      //   state = { ...action.payload };
+      state.accoutingResponse = action.payload;
     },
   },
 });
