@@ -1,15 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { loanDetails } from "../../redux/responseSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { sheet } from "../../utils/mock";
 import { addCompanyInfo } from "../../redux/apiSlice";
 
 const Form = () => {
-  const companyDetails = useSelector((store) => store.companyInfo.info);
   const [basicInfo, setBasicInfo] = useState({});
+  // const [isDisabled, setIsDisabled] = useState(false);
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   console.log(basicInfo.year === "" && basicInfo.companyName === "");
+  //   const checkFormValidity = () => {
+  //     setIsDisabled(
+  //       basicInfo.year === "" &&
+  //         basicInfo.companyName === "" &&
+  //         basicInfo.loanAmount === "" &&
+  //         basicInfo.accountingType === ""
+  //     );
+  //   };
+
+  //   checkFormValidity();
+  // }, [
+  //   basicInfo.year,
+  //   basicInfo.companyName,
+  //   basicInfo.loanAmount,
+  //   basicInfo.accountingType,
+  // ]);
+  // console.log(basicInfo);
 
   const sendRequst = () => {
     // store payload in redux store
@@ -19,13 +39,27 @@ const Form = () => {
     // axios
     //   .post("url_to_backend", basicInfo)
     //   .then((respone) => dispatch(loanDetails(respone)));
-    dispatch(addCompanyInfo(companyDetails));
+    // console.log(
+    // basicInfo?.year !== "" &&
+    //   basicInfo?.companyName !== "" &&
+    //   basicInfo?.loanAmount !== "" &&
+    //   basicInfo?.accountingType !== ""
+    // );
+    dispatch(addCompanyInfo(basicInfo));
     dispatch(loanDetails(sheet));
   };
-  // const test = () => {
-  //   console.log(accounSheetDetails);
-  // };
 
+  const clear = () => {
+    document.getElementById("company_name").value = "";
+    document.getElementById("year_established").value = "";
+    document.getElementById("loan_amount").value = "";
+    document.getElementById("default-radio-1").checked = false;
+    document.getElementById("default-radio-2").checked = false;
+
+    // setIsDisabled(false);
+    setBasicInfo({});
+    dispatch(loanDetails([]));
+  };
   return (
     // <div className="flex flex-col md:flex-row justify-around items-center m-9 gap-x-2 ">
     <>
@@ -110,7 +144,7 @@ const Form = () => {
           </label>
 
           <input
-            id="default-radio-1"
+            id="default-radio-2"
             type="radio"
             value=""
             name="default-radio"
@@ -120,7 +154,7 @@ const Form = () => {
             }
           />
           <label
-            htmlFor="default-radio-1"
+            htmlFor="default-radio-2"
             className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             MYOB
@@ -128,18 +162,23 @@ const Form = () => {
         </div>
 
         {/* <button onClick={() => sendRequst}>submit</button> */}
-        <button
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          onClick={sendRequst}
-        >
-          Get balance sheet
-        </button>
-        {/* <button onClick={test}>click</button> */}
+        <div className="flex gap-x-2">
+          <button
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={sendRequst}
+            // disabled={!isDisabled}
+          >
+            Get balance sheet
+          </button>
+          <button
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={clear}
+          >
+            Clear
+          </button>
+        </div>
       </div>
     </>
-
-    //   <div className="w-1/2 bg-black">hello</div>
-    // </div>
   );
 };
 
