@@ -22,6 +22,8 @@ UI contains a basic from with the following filds
 - Get accounting sheet button
 
 # Screenshot
+<img width="939" alt="image" src="https://github.com/rajatsingharora27/Demyst-project/assets/76241298/52ead811-d58c-4b22-b902-532bcad48582">
+
 
 This thhe basic ui for the application
 
