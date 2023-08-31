@@ -35,16 +35,27 @@ const Form = () => {
     // store payload in redux store
 
     //Uncomment this part after testing and making the backend api
+    // console.log(basicInfo);
+    axios
+      .post("http://localhost:8080/api/v1/account-detail", basicInfo)
+      .then((respone) => {
+        if (respone.data.statusCode === 200) {
+          dispatch(loanDetails(respone));
+        }
+        //Make error pop up
+        else {
+          // console.log("hello");
+          alert(respone.data.message);
+        }
+      });
 
-    // axios
-    //   .post("url_to_backend", basicInfo)
-    //   .then((respone) => dispatch(loanDetails(respone)));
     // console.log(
     // basicInfo?.year !== "" &&
     //   basicInfo?.companyName !== "" &&
     //   basicInfo?.loanAmount !== "" &&
     //   basicInfo?.accountingType !== ""
     // );
+
     dispatch(addCompanyInfo(basicInfo));
     dispatch(loanDetails(sheet));
   };

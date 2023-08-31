@@ -4,7 +4,7 @@ import axios from "axios";
 
 const ResponseSection = () => {
   const [accoutResult, setAccountResult] = useState([]);
-  const [loanApprovalRequest, setloanApprovalRequest] = useState({});
+  const [loanApprovalRequest, setloanApprovalRequest] = useState([]);
   const accounSheetDetails = useSelector(
     (store) => store.loanDetailsInfo.accoutingResponse
   );
@@ -19,10 +19,16 @@ const ResponseSection = () => {
   }, [accounSheetDetails]);
 
   const getLoanRequest = () => {
-    console.log(loanApprovalRequest, "Loan");
+    // console.log(loanApprovalRequest, "Loan");
 
     //uncomment when backend is complete
-    // axios.post("post_request_toget_loan_approval", loanApprovalRequest);
+    axios
+      .post("http://localhost:8080/api/v1/decision-engine", loanApprovalRequest)
+      .then((res) => {
+        alert(
+          `loan approved for ${res.data.data.preAssessment}% of asked value`
+        );
+      });
   };
 
   return (
